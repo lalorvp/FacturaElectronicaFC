@@ -14,7 +14,6 @@ public class ApiFacturaElectronica {
         System.out.println("Iniciando");
         registrar();
         registrarTipoCambio();
-        
     }
     
     private static void registrar() throws ParseException, DatatypeConfigurationException {
@@ -33,7 +32,7 @@ public class ApiFacturaElectronica {
         System.out.println("a-1");
         org.tempuri.ObjectFactory objFactory = new org.tempuri.ObjectFactory();
                         
-        //Empresa
+        //Empresa(G1)
         org.tempuri.ENEmpresa oENEmpresa = objFactory.createENEmpresa();
         oENEmpresa.setCodigoTipoDocumento("6");
         oENEmpresa.setRuc("20228319768");
@@ -53,7 +52,7 @@ public class ApiFacturaElectronica {
         
         oGeneral.setOENEmpresa(oENEmpresa);
        
-        //Comprobante
+        //Comprobante(G2)
         System.out.println("a");
         org.tempuri.ENComprobante oENComprobante = objFactory.createENComprobante();                
         oENComprobante.setTipoComprobante("Factura");
@@ -99,7 +98,7 @@ public class ApiFacturaElectronica {
         
         //Falta campos para NOTAS DE CREDITO G3, G4 y G5        
 
-        //Comprobante Receptor
+        //Comprobante Receptor(G6)
         org.tempuri.ArrayOfENReceptor oArrayOfENReceptor = objFactory.createArrayOfENReceptor();
         org.tempuri.ENReceptor oENReceptor = objFactory.createENReceptor();
         oENReceptor.setCodigo("120401");
@@ -113,7 +112,7 @@ public class ApiFacturaElectronica {
         oArrayOfENReceptor.getENReceptor().add(oENReceptor);                
         oENComprobante.setReceptor(oArrayOfENReceptor);
                 
-        //Comprobante ComprobanteDetalle
+        //Comprobante ComprobanteDetalle(G7)
         org.tempuri.ENComprobanteDetalle oENComprobanteDetalle = objFactory.createENComprobanteDetalle();
         oENComprobanteDetalle.setItem(1);
         oENComprobanteDetalle.setUnidadComercial("ZZ");
@@ -132,7 +131,7 @@ public class ApiFacturaElectronica {
         //oENComprobanteDetalle.setCodigoProductoGS1("104007241713000002");
         oENComprobanteDetalle.setImpuestoTotal(Double.parseDouble("0"));                        
         
-        //Comprobante ComprobanteDetalle DescuentoCargoDetalle
+        //Comprobante ComprobanteDetalle DescuentoCargoDetalle(G9)
         org.tempuri.ENDescuentoCargoDetalle oENDescuentoCargoDetalle = objFactory.createENDescuentoCargoDetalle();
         oENDescuentoCargoDetalle.setIndicador(1);
         oENDescuentoCargoDetalle.setMonto(java.math.BigDecimal.valueOf(0));
@@ -145,7 +144,7 @@ public class ApiFacturaElectronica {
         oArrayOfENDescuentoCargoDetalle.getENDescuentoCargoDetalle().add(oENDescuentoCargoDetalle);         
         oENComprobanteDetalle.setDescuentoCargoDetalle(oArrayOfENDescuentoCargoDetalle);
                         
-        //Comprobante ComprobanteDetalle ComprobanteDetalleImpuesto
+        //Comprobante ComprobanteDetalle ComprobanteDetalleImpuesto(G10)
         org.tempuri.ENComprobanteDetalleImpuestos oENComprobanteDetalleImpuestos = objFactory.createENComprobanteDetalleImpuestos();
         oENComprobanteDetalleImpuestos.setImporteTributo(java.math.BigDecimal.valueOf(0));
         oENComprobanteDetalleImpuestos.setImporteExplicito(java.math.BigDecimal.valueOf(0));
@@ -161,7 +160,7 @@ public class ApiFacturaElectronica {
         oArrayOfENComprobanteDetalleImpuestos.getENComprobanteDetalleImpuestos().add(oENComprobanteDetalleImpuestos);        
         oENComprobanteDetalle.setComprobanteDetalleImpuestos(oArrayOfENComprobanteDetalleImpuestos);
         
-        //Comprobante ComprobantePropiedadesAdicionales        
+        //Comprobante ComprobantePropiedadesAdicionales(G13)        
         org.tempuri.ENComprobantePropiedadesAdicionales oENComprobantePropiedadesAdicionales = objFactory.createENComprobantePropiedadesAdicionales();
         oENComprobantePropiedadesAdicionales.setCodigo("1"); //reviar valor
         oENComprobantePropiedadesAdicionales.setValor("1"); //reviar valor
@@ -171,7 +170,8 @@ public class ApiFacturaElectronica {
         oENComprobante.setComprobantePropiedadesAdicionales(oArrayOfENComprobantePropiedadesAdicionales);
         
         System.out.println("c");
-        //Comprobante Texto        
+        
+        //Comprobante Texto(G14)        
         org.tempuri.ENTexto oENTexto = objFactory.createENTexto();
         oENTexto.setTexto1("1");
         oENTexto.setTexto2("2");
@@ -182,7 +182,7 @@ public class ApiFacturaElectronica {
         oArrayOfENTexto.getENTexto().add(oENTexto);               
         oENComprobante.setTexto(oArrayOfENTexto);
         
-        //Comprobante Sucursal        
+        //Comprobante Sucursal(G33)
         org.tempuri.ENSucursal oENSucursal = objFactory.createENSucursal();
         oENSucursal.setNombre("PROCERES");
         
@@ -190,7 +190,7 @@ public class ApiFacturaElectronica {
         oArrayOfENSucursal.getENSucursal().add(oENSucursal);
         oENComprobante.setSucursal(oArrayOfENSucursal);
         
-        //Comprobante ComprobanteMontosAdicionalesOtros        
+        //Comprobante ComprobanteMontosAdicionalesOtros(G36)
         org.tempuri.ENComprobanteMontosAdicionalesOtros oENComprobanteMontosAdicionalesOtros = objFactory.createENComprobanteMontosAdicionalesOtros();
         oENComprobanteMontosAdicionalesOtros.setCodigo("1");
         oENComprobanteMontosAdicionalesOtros.setMonto(java.math.BigDecimal.valueOf(1));
@@ -199,7 +199,7 @@ public class ApiFacturaElectronica {
         oArrayOfENComprobanteMontosAdicionalesOtros.getENComprobanteMontosAdicionalesOtros().add(oENComprobanteMontosAdicionalesOtros);
         oENComprobante.setComprobanteMontosAdicionalesOtros(oArrayOfENComprobanteMontosAdicionalesOtros);
         
-        // Comprobante ComprobanteDetalle GastosHipotecarios
+        // Comprobante ComprobanteDetalle GastosHipotecarios(G74)
         org.tempuri.ENGastosHipotecario oENGastosHipotecario = objFactory.createENGastosHipotecario();
         oENGastosHipotecario.setCodigoTipoPrestamo("1");
         oENGastosHipotecario.setCodigoIndicador("1");
@@ -220,13 +220,13 @@ public class ApiFacturaElectronica {
         oENComprobante.setComprobanteDetalle(oArrayOfENComprobanteDetalle);
         
         System.out.println("d");
-        //Comprobante MontosTotales Gravado
+        //Comprobante MontosTotales Gravado(G79)
         org.tempuri.ENGravado oENGravado = objFactory.createENGravado();        
         oENGravado.setTotal(Double.parseDouble("172.11"));  
         
         org.tempuri.ENMontosTotales oENMontosTotales = objFactory.createENMontosTotales(); 
         
-        //Comprobante MontosTotales Gravado GravadoIGV
+        //Comprobante MontosTotales Gravado GravadoIGV(G80)
         org.tempuri.ENGravadoIGV oENGravadoIGV = objFactory.createENGravadoIGV();
         oENGravadoIGV.setBase(Double.parseDouble("0.00"));
         oENGravadoIGV.setValorImpuesto(Double.parseDouble("0.00"));
