@@ -1,0 +1,2 @@
+# WSDL
+el archivo service_asmx.wsdl se debe colocar en la ruta: /opt/bantotal/wsdl/facturaelectronica/
