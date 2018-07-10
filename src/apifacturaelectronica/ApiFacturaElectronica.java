@@ -15,7 +15,8 @@ public class ApiFacturaElectronica {
         //registrarFactura();
         //registrarNotaCredito();
         //registrarTipoCambio();
-        confirmarRespuestaComprobante();
+        //confirmarRespuestaComprobante();
+        obtenerXML();
     }
     
     private static void registrarFactura() throws ParseException, DatatypeConfigurationException {
@@ -573,6 +574,37 @@ public class ApiFacturaElectronica {
         System.out.println("Descripcion Error: " + oENDetCpbError.getDescripcionError());
         System.out.println("Serie: " + oENDetCpbError.getSerie());
         System.out.println("Numero: " + oENDetCpbError.getNumero());
+    }
+
+    private static void obtenerXML() {
+        
+        javax.xml.ws.Holder<java.lang.String> cadena = new javax.xml.ws.Holder<>();
+        javax.xml.ws.Holder<org.tempuri.ENRespuestaXML> obtenerXMLResult = new javax.xml.ws.Holder<>();
+        
+        org.tempuri.ENPeticion oENPeticion = new org.tempuri.ENPeticion();
+        oENPeticion.setRuc("20228319768");
+        oENPeticion.setSerie("F301");
+        oENPeticion.setNumero("49");
+        oENPeticion.setTipoComprobante("01");
+        oENPeticion.setIndicadorComprobante(1);                        
+                
+        org.tempuri.WSComprobante service = new org.tempuri.WSComprobante();
+        org.tempuri.WSComprobanteSoap port = service.getWSComprobanteSoap();
+        port.obtenerXML(oENPeticion, cadena, obtenerXMLResult);
+        
+        System.out.println("cadena: " + cadena.value);
+        System.out.println("obtenerXMLResult: " + obtenerXMLResult.value.getNombreXML());
+        System.out.println("obtenerXMLResult: " + obtenerXMLResult.value.getArchivoXML());
+        String nameFile = obtenerXMLResult.value.getNombreXML();
+        
+        try{
+            byte[] fileArray = obtenerXMLResult.value.getArchivoXML();            
+            java.io.FileOutputStream fileOuputStream = new java.io.FileOutputStream("d:\\" + nameFile);
+            fileOuputStream.write(fileArray);
+            fileOuputStream.close();
+        }catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
 
